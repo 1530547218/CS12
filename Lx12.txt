@@ -1,0 +1,126 @@
+﻿C＃企业级开发技术练习12答题卡
+
+班级：信息管理2班     
+姓名：黄家福   
+学号：20190307227    
+
+*注：排除答案放置在序号下方。* /
+
+（一）
+使用系统；
+使用System.IO;
+
+命名空间ConsoleApp1
+{
+    班级计划
+    {
+        静态void Main（string [] args）
+        {
+            使用（MemoryStream mst = new MemoryStream（））
+            {
+                byte [] buffer = {74，97，118，97，83，99，114，105，112，116};
+                foreach（缓冲区中的int b）
+                {
+                    Console.Write（（char）b）;
+                }
+                Console.WriteLine（）;
+                mst.Write（buffer）;
+                mst.Seek（-6，SeekOrigin.End）;
+                整数r = -1;
+                而（（r = mst.ReadByte（））！= -1）
+                {
+                    Console.Write（（char）r）;
+                }
+                Console.WriteLine（）;
+                mst.Position = 2;
+                byte [] bf =新的byte [5]；
+                mst.Read（bf）;
+                Console.WriteLine（BitConverter.ToString（bf））;
+            }
+        }
+    }
+}
+
+（二）
+使用系统；
+使用System.IO;
+
+命名空间ConsoleApp2
+{
+    班级计划
+    {
+        静态void Main（string [] args）
+        {
+            DirectoryInfo di =新的DirectoryInfo（@“ d：\ homeDir”）;
+            di.Create（）;
+            字符串file1 = @“ d：\ homeDir \ homeWork4.txt”;
+            字符串file2 = @“ d：\ homeDir \ homeWork5.txt”;
+            使用（FileStream fs = new FileStream（file1，FileMode.Create））
+            {
+                byte [] bf = {46，78，69，84，32，67，111，114，101};
+                fs.Write（bf）;
+            }
+            使用（StreamWriter sw = new StreamWriter（file2））
+            {
+                sw.WriteLine（“ name：zhang”）;
+                sw.Write（“ age：”）;
+                sw.WriteLine（20）;
+            }
+            foreach（di.EnumerateFiles（“ *”，SearchOption.AllDirectories中的var f））
+            {
+                使用（StreamReader srd = new StreamReader（f.FullName））
+                {
+                    字符串str = null;
+                    while（（str = srd.ReadLine（））！=空）
+                    {
+                        Console.WriteLine（str）;
+                    }
+                }
+            }
+        }
+    }
+}
+
+（三）
+使用系统；
+使用System.IO;
+使用System.IO.Compression;
+
+命名空间ConsoleApp3
+{
+    班级计划
+    {
+        静态void Main（string [] args）
+        {
+            字符串目录= @“ d：\ homeDir \”;
+            字符串file1 =“ homeWork4.txt”;字符串file2 =“ homeWork5.txt”;
+            字符串zipFile =“ homeZip.zip”;字符串zipDir = dir +“ homeZip”;
+            使用（FileStream fs = File.Create（dir + zipFile））
+            {
+                使用（ZipArchive zip = new ZipArchive（fs，ZipArchiveMode.Create））
+                {
+                    zip.CreateEntryFromFile（dir + file1，file1）;
+                    zip.CreateEntryFromFile（dir + file2，file2）;
+                }
+            }
+            使用（FileStream fs = File.OpenRead（dir + zipFile））
+            {
+                使用（ZipArchive zip = new ZipArchive（fs））
+                {
+                    Directory.CreateDirectory（zipDir）;
+                    foreach（ZipArchiveEntry等在zip.Entries中）
+                    {
+                        使用（流stm = et.Open（））
+                        {
+                            using（FileStream fstm = File.Create（$ @“ {zipDir} \ {et.Name}”））
+                            {
+                                stm.CopyTo（fstm）;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
